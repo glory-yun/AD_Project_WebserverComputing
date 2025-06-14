@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Profile</h2>
+    <div class="card mb-4">
+        <div class="card-header">
+            기본 정보
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">아이디: {{ user_profile.username }}</li>
+            <li class="list-group-item">이메일: {{ user_profile.email }}</li>
+            <li class="list-group-item">가입일: {{ user_profile.date_joined|date:"Y-m-d H:i" }}</li>
+        </ul>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            작성한 질문
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for question in questions %}
+                <li class="list-group-item">
+                    <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
+                    <small class="text-muted d-block">{{ question.create_date|date:"Y-m-d" }}</small>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-muted">작성한 질문이 없습니다.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            작성한 답변
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for answer in answers %}
+                <li class="list-group-item">
+                    → <a href="{% url 'pybo:detail' answer.question.id %}">{{ answer.content|truncatechars:50 }}</a>
+                    <small class="text-muted d-block">{{ answer.create_date|date:"Y-m-d" }}</small>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-muted">작성한 답변이 없습니다.</li>
+            {% endfor %}
+        </ul>
+    </div>  
+
+    <div class="card mb-4">
+        <div class="card-header">
+            작성한 댓글
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for comment in comments %}
+                <li class="list-group-item">
+                    💬 {{ comment.content|truncatechars:50 }}
+                    <small class="text-muted d-block">{{ comment.create_date|date:"Y-m-d" }}</small>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-muted">작성한 댓글이 없습니다.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

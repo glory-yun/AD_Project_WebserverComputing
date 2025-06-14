@@ -1,0 +1,31 @@
+<h2>🔍 request 객체 실습</h2>
+<p><strong>요청 방식:</strong> {{ request_method }}</p>
+<p><strong>요청 경로:</strong> {{ path }}</p>
+<p><strong>전체 URL:</strong> {{ full_path }}</p>
+<p><strong>클라이언트 IP:</strong> {{ client_ip }}</p>
+<p><strong>User-Agent:</strong> {{ user_agent }}</p>
+
+<hr>
+<h4>📄 GET 요청 정보</h4>
+<pre>{{ get_data }}</pre>
+
+<h4>📄 POST 요청 정보</h4>
+<pre>{{ post_data }}</pre>
+
+<h4>🙋 사용자 정보</h4>
+<p>로그인 여부: {{ is_authenticated }}</p>
+<p>사용자: {{ username }}</p>
+
+<h4>🍞 세션 데이터</h4>
+<p>session['demo']: {{ session_data }}</p>
+
+<h4>📥 요청 테스트</h4>
+<form method="get">
+    <input type="text" name="get_key" placeholder="GET 요청 파라미터">
+    <button type="submit">GET 전송</button>
+</form>
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="message" placeholder="POST 요청 내용">
+    <button type="submit">POST 전송</button>
+</form>
